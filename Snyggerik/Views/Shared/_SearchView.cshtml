@@ -1,0 +1,115 @@
+﻿<div ng-app="app" ng-controller="SearchController" ng-cloak>
+
+    <body-search>
+
+        <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
+        <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body">
+
+                            @*<input type="text" class="form-control" name="keyword"
+                                placeholder="Search Blog" ng-model="keyword" ng-change="SearchData()" label="keyword" />*@
+
+                            <div class="pre-scrollable">
+                                <table class="table" ng-show="showTable" ng-cloak>
+
+
+
+
+
+
+                                    @*-------------------------------------------------------------------------*@
+                                    @*--------------------- Blog sökning --------------------------------------*@
+                                    <tbody class="col-sm-4">
+                                        <tr>
+                                            <th>
+                                                <h4>Blog Title</h4>
+                                            </th>
+                                            <th>
+                                                <h4>Blog Body</h4>
+                                            </th>
+
+                                            <th>
+                                                <p>@Html.ActionLink(".", "Search", "Home")</p>
+
+                                            </th>
+                                        </tr>
+                                        <tr ng-repeat="x in DbData" style="border-style: double;">
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Blogs/Show/"){{x.BlogId}}">{{x.BlogTitle}}</a>
+
+                                            </td>
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Blogs/Show/"){{x.BlogId}}">{{x.BlogBody}}</a>
+
+
+
+                                            </td>
+                                            <td>
+                                                <h4></h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    @*-------------------------------------------------------------------------*@
+                                    @*--------------------- Post sökning --------------------------------------*@
+                                    <tbody class="col-sm-4">
+                                        <tr class="1">
+                                            <th>
+                                                <h4>Post Body</h4>
+                                            </th>
+                                            @*<th>
+                                                    <h4>Post Title</h4>
+                                                </th>*@
+                                        </tr>
+                                        <tr ng-repeat="z in PostData" style="border-style: double;">
+                                            @*<td>
+                                                    <a ng-href="@Url.Content("~/Posts/Show/"){{z.IdPost}}">{{z.PostBody}}</a>
+                                                </td>*@
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Posts/Show/"){{z.IdPost}}">{{z.PostTitle}}</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @*-------------------------------------------------------------------------*@
+                                    @*--------------------- Tag sökning ---------------------------------------*@
+                                    <tbody class="col-sm-4">
+                                        <tr>
+                                            <th>
+                                                <h4>Tag Name</h4>
+                                            </th>
+                                        </tr>
+                                        <tr ng-repeat="y in TagData" style="border-style: double;">
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Tag/Show/"){{y.TagId}}">{{y.Name}}</a>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+
+
+
+
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* error mesage *@
+        <h4>{{ResponseDetails}}</h4>
+    </body-search>
+</div>

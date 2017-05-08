@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Snyggerik.Models.Blog>
+
+@{
+    ViewBag.Title ="Search";
+} 
+
+  
+        <div class="panel-heading" font color="#030206"><h1 style="background:transparent !important"  class="jumbotron text-center"> Sultaner Är Bäst !</h1></div>     
+  
+<form class="container body-content">
+
+    <div class="col-sm-4">
+        <img src="~/images/2_.jpg" class="img-circle" alt="Cinque Terre" width="318" height="318">
+    </div>
+    <div class="col-sm-4">
+        <img src="~/images/sultan_white_hen.jpg" class="img-circle" alt="Cinque Terre" width="318" height="318">
+    </div>
+    <div class="col-sm-4">
+        <img src="~/images/3.jpg" class="img-circle" alt="Cinque Terre" width="318" height="318">
+    </div>
+
+   
+       
+
+
+       
+        <div>
+
+            @*<div ng-app="app">
+
+                    <div ng-controller="SearchController" ng-cloak>
+
+                        <table class="table">
+                            <br />
+                            <br />
+                            <br />
+                            <tr>
+                                <td>
+
+                                    <input type="text" class="form-control" name="keyword"
+                                           placeholder="Search Blog" ng-model="keyword" ng-keydown="SearchData()" />
+                                </td>
+                            </tr>
+                        </table>
+                        <div ng-show="showTable" ng-cloak>
+
+
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        <h4>Blog Title</h4>
+                                    </th>
+                                    <th>
+                                        <h4>Blog Body</h4>
+                                    </th>
+                                    <th>
+                                        <h4>Tag Name</h4>
+                                    </th>
+                                </tr>
+
+                                <tr ng-repeat="x in DbData ">
+                                    <td>
+                                        <a style="color:salmon;text-decoration: underline;"
+                                           ng-href="@Url.Content("~/Blogs/Show/"){{x.BlogTitle}}">{{x.BlogTitle}}</a>
+                                    </td>
+                                    <td>
+                                        <a style="color:salmon;text-decoration: underline;"
+                                           ng-href="@Url.Content("~/Blogs/Show/"){{x.BlogBody}}">{{x.BlogBody}}</a>
+                                    </td>
+
+                                    <td ng-repeat="y in TagData">
+                                        <a style="color:salmon;text-decoration: underline;"
+                                           ng-href="@Url.Content("~/Posts/Show/"){{y.TagId}}">{{y.Name}}</a>
+
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                        </div>
+
+
+                    </div>
+
+                    <h4>{{ResponseDetails}} </h4>
+
+
+
+
+                </div>*@
+        </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+

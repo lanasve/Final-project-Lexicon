@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Snyggerik.Models.SuperBlog>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container body-content">
+    <h2>All blogs @ViewBag.Sort </h2>
+
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                @Html.ActionLink("Created", "Index", new { sort = 2 })
+            </th>
+            <th>
+                @Html.ActionLink("Username", "Index", new { sort = 1 })
+            </th>
+            <th>
+                @Html.ActionLink("Views", "Index", new { sort = 3 })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.BlogTitle)*@
+                    @Html.ActionLink(item.Blog.BlogTitle, "Show", new { id = item.Blog.BlogId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Blog.BlogBody)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Blog.BlogCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Blog.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalViews)
+                </td>
+
+                
+                @*@if (User.Identity.IsAuthenticated == true)
+                {
+                    if (User.Identity.Name == item.Blog.User.UserName)
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Blog.BlogId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Blog.BlogId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Blog.BlogId })
+                        </td>
+                    }
+                }*@
+            </tr>
+        }
+
+    </table>
+</div>

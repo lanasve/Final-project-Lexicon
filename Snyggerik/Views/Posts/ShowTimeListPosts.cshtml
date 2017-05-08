@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Snyggerik.Models.Post>
+
+@{
+    ViewBag.Title = "ShowTimeListPosts";
+}
+
+<h2>ShowTimeListPosts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PostTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Views)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostBody)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Views)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdPost }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdPost }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdPost })
+        </td>
+    </tr>
+}
+
+</table>

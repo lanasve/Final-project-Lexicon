@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<div ng-app="app" ng-controller="SearchController" ng-cloak>
+  <body-search>
+
+            @*<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">*@
+
+            <input type="text" class="form-control" name="keyword"
+                   placeholder="Search" ng-model="keyword" ng-change="SearchData()"
+                   label="keyword" />
+
+            <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-body">
+         <div class="pre-scrollable">
+           <table class="table" ng-show="showTable" ng-cloak>
+
+           @*-------------------------------------------------------------------------*@
+           @*--------------------- Blog sökning --------------------------------------*@
+            <tbody class="col-sm-5">
+                                        <tr>
+                                            <th>
+                                                <h4>Title</h4>
+                                            </th>
+                                            <th>
+                                                <h4>Body</h4>
+                                            </th>
+                                            <th>
+                                                <p>@Html.ActionLink(".", "Search", "Home")</p>
+                                            </th>
+                                        </tr>
+                                        <tr ng-repeat="x in DbData" @*style="border-style: solid;"*@>
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Blogs/Show/"){{x.BlogId}}">{{x.BlogTitle}}</a>
+                                            </td>
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Blogs/Show/"){{x.BlogId}}">{{x.BlogBody}}</a>
+                                            </td>
+                                            <td>
+                                                <h4></h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+           @*-------------------------------------------------------------------------*@
+           @*--------------------- Post sökning --------------------------------------*@
+            <tbody class="col-sm-7">
+                                        <tr class="1">
+                                            <th>
+                                                <h4>Post Body <a1> Views</a1></h4>
+
+                                            </th>
+
+                                        </tr>
+                                        <tr ng-repeat="z in PostData" @*style="border-style: solid;"*@>
+                                            <td>
+                                                <a ng-href="@Url.Content("~/Posts/Show/") {{z.IdPost}}">{{z.PostTitle}}                                                    
+                                                <a1 ng-href="@Url.Content("~/Posts/Show/"){{z.IdPost}}"> {{ z.Views}}</a1>
+                                                </a>
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+          
+           @*-------------------------------------------------------------------------*@
+           @*-------------------------------------------------------------------------*@
+
+           </table>
+            </div>
+            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+
+         </div>
+        </div>
+       </div>
+      </div>
+        @* error mesage *@
+  <h4>{{ResponseDetails}}</h4>
+ </body-search>
+</div>

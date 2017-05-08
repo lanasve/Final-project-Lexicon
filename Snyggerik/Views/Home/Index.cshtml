@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div style="background:transparent !important" class="jumbotron">
+
+
+    <div class="text-center">
+        <h2 style="color:white">Welcome to Snygg-Eriks Blog!</h2>
+        <p style="color:white">
+            @*My friendly blog invite everybody who have to say us something interesting!*@  
+            @*@Html.ActionLink(".", "Search", "Home","style=color:gray")*@
+            <a href="/home/search"><font color="gray">.</font></a>
+        </p>
+    </div>
+
+    <br /><br />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="col-md-4">
+
+                <h2 class="text-center" style="color:coral">The Rooster Rules!</h2>
+
+            </div>
+
+            <div class="col-md-8 center-block">
+                <h1 class="text-center" style="color:white">Snygg-Eriks Blog<img height="400" width="400" src="~/images/erik.png" /></h1>
+                <br />
+            </div>
+        </div>
+
+        <div class="col-md-2 pull-right ">
+            <h4>Curiositiess</h4>
+            <a href="https://www.youtube.com/embed/oKUscEWPVAM" target="_blank">Hönan Agda</a>
+            <br />
+            <a href="http://ramsby.se:7073" target="_blank">See Erik live</a>
+            <br />
+            <a href="https://en.wikipedia.org/wiki/Galliformes" target="_blank">Galliformes, facts</a>
+            <br />
+            <a href="http://www.alternativ.nu/" target="_blank">Swedish forum</a>
+            <br />
+            <a href="http://www.granngarden.se/"  target="_blank">Granngården</a>
+            <br />
+
+
+
+            
+        </div>
+    </div>
+    @Html.Action("LastPost")
+</div>

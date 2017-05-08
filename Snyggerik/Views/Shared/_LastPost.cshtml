@@ -1,0 +1,49 @@
+﻿@model Snyggerik.Models.Post
+
+<div>
+    @*<h4>Latest post</h4>
+    <hr />*@
+    <dl class="dl-horizontal">
+        
+        @*<dt>
+            @Html.DisplayNameFor(model => model.PostBody)
+        </dt>*@
+
+        <dd>
+            @{ 
+                string txt="";
+                txt = Model.PostBody;
+                if (txt.Length > 200) {
+                    txt = txt.Substring(0, 200);
+                }
+
+            }
+        <table>
+            <td><h4>Latest post</h4></td><tr>
+    <td>@txt @Html.ActionLink("Read entire post", "Show", "Posts", new { id = @Model.IdPost }, null)</td>
+</tr>
+            </table>
+          @*  @Html.DisplayFor(model => model.PostBody)*@
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.PostCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Views)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Views)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+  
+</p>

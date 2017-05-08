@@ -1,0 +1,89 @@
+﻿@model Snyggerik.Models.Post
+
+@{
+    ViewBag.Title = "Show post";
+}
+<div class="container body-content">
+
+    <h2>Post</h2>
+    @if (User.Identity.IsAuthenticated)
+            {
+        <div>
+            @Html.ActionLink("Back to My Blogs List", "MyBlogs", "Blogs")
+            ||
+            @Html.ActionLink("Back to My Posts List", "MyPosts", "Posts")
+
+        </div>
+    }
+    @Html.ActionLink("Back to Posts List", "FilterPosts", "Posts")
+    <br />
+    <div>
+        <h4>@Model.PostTitle</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.PostTitle)
+                </dt>*@
+
+            @*<dd>
+                    @Html.DisplayFor(model => model.PostTitle)
+                </dd>*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostBody)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostBody)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostCreated)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Views)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Views)
+            </dd>
+
+        </dl>
+    </div>
+    @if (User.Identity.IsAuthenticated == true)
+    {
+        <button class="btn btn-primary" type="button" onclick="ShowForm()">Add a comment</button>
+        using (Html.BeginForm("AddComment", "Comments", FormMethod.Post))
+        {
+            <input type="hidden" id="id" name="id" value="@Model.IdPost" />
+            <div id="com" hidden>
+                <textarea class="comment" 120" id="body" name="body" rows="2"></textarea>
+                <br />
+                <button class="btn btn-success" type="submit">Save comment</button>
+            </div>
+        }
+    }
+
+    @if (User.Identity.Name == Model.Blog.User.UserName)
+    {
+
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdPost }) |
+          
+                @Html.ActionLink("Delete", "Delete", new { id = Model.IdPost }) |
+                                                                          
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    }
+
+    <script>
+        function ShowForm(id) {
+            document.getElementById("com").hidden = !document.getElementById("com").hidden;
+        }
+    </script>
+</div>

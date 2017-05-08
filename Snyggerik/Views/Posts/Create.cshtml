@@ -1,0 +1,99 @@
+﻿@model Snyggerik.Models.Adel
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.blogId = Model.ThePost.Blog.BlogId;
+}
+<div class="container body-content">
+    <h2>Create your new post</h2>
+
+
+    @using (Html.BeginForm())
+    {
+
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" id="taglist" name="taglist" />
+
+        <h3><font color="yellow">Tags</font></h3>
+        foreach (var T in Model.AllTags)
+        {
+            <input class="tags" type="checkbox" onclick="MakeTagList()" id="@T.TagId" /><font color="yellow"> @T.Name</font>
+
+
+        }
+
+        <div class="form-horizontal">
+            <h4>Post</h4>
+            <input type="hidden" name="blogId" id="blogId" value="@Model.ThePost.Blog.BlogId" />
+
+            <div>
+                @Html.ActionLink("Back to My Blogs List", "MyBlogs", "Blogs")
+                ||
+                @Html.ActionLink("Back to My Posts List", "MyPosts", "Posts")
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThePost.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ThePost.PostTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThePost.PostTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*Html.EditorFor(model => model.Blog.BlogId, new { htmlAttributes = new {@value= "@Model.Blog.BlogId", @class = "form-control" } })*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThePost.PostBody, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.ThePost.PostBody, new { cols = 60, @rows = 6 })
+                    @Html.ValidationMessageFor(model => model.ThePost.PostBody, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <input type="hidden" name="PostCreated" id="PostCreated" value="@DateTime.Now" />
+
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.Views, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Views, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Views, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+   
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</div>
+<script>
+    function MakeTagList() {
+        //empty
+        document.getElementById('taglist').value = "";
+        //create new list
+        var boxes = document.getElementsByClassName("tags");
+
+        var count = boxes.length;
+        var tagString = "";
+        //alert(count);
+        for (var i = 0; i < count; i++) {
+            if (boxes[i].checked) {
+                tagString += boxes[i].id + ",";
+            }
+        }
+        //alert("tagstring is " + tagstring);
+        document.getElementById('taglist').value = tagString;
+        
+    }
+
+</script>

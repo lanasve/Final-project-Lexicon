@@ -1,0 +1,151 @@
+﻿@model Snyggerik.Models.SuperPosts
+
+@{
+    ViewBag.Title = "Search posts";
+    string search = "";
+
+}
+@*Get search*@
+
+
+@foreach (var item in Model.SearchTags)
+{
+    search += item.TagId.ToString() + ",";
+}
+
+<div class="container body-content">
+    <div>
+        <div class="col-xs-10">
+            <h2>Browse posts</h2>
+            @if (User.Identity.IsAuthenticated)
+            {
+            <div>
+                @Html.ActionLink("Back to My Blogs List", "MyBlogs", "Blogs")
+                ||
+                @Html.ActionLink("Back to My Posts List", "MyPosts", "Posts")
+
+            </div>
+            }
+            <br />
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Text
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Views
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Posts)
+                {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.PostTitle, "Show", new { id = item.IdPost })
+                        @*@Html.DisplayFor(modelItem => item.PostTitle)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostBody)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Views)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.IdPost }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IdPost }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdPost })*@
+                    </td>
+                </tr>
+                }
+
+            </table>
+
+        </div>
+        <div class="col-xs-2">
+            <form action="FilterPosts" method="post">
+                <input type="hidden" id="filter" name="filter" value="@search" />
+
+                <button class="btn btn-primary" id="searchbutton" type="submit"></button>
+            </form>
+            <h2><font color="yellow">Tags</font></h2>
+            <ul>
+                @foreach (var T in Model.AllTags)
+                {
+                    <li>
+                        <input class="tags" type="checkbox" onclick="MakeTagList()" id="@T.TheTag.TagId" />
+                        <font color="yellow">@T.TheTag.Name (@T.Used views)</font>
+</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+
+
+        function MakeTagList() {
+            //empty
+            document.getElementById('filter').value = "";
+            //create new list
+            var boxes = document.getElementsByClassName("tags");
+
+            var count = boxes.length;
+            var tagString = "";
+            //alert(count);
+            for (var i = 0; i < count; i++) {
+                if (boxes[i].checked) {
+                    tagString += boxes[i].id + ",";
+                }
+            }
+            //alert("tagstring is " + tagstring);
+            document.getElementById('filter').value = tagString;
+            document.getElementById("searchbutton").click();
+
+        }
+
+
+
+        //Checkboxes
+        var str = document.getElementById("filter").value;
+        if (str.length) {
+
+            str = str.substring(0, str.length - 1);
+            var arr = str.split(",");
+            for (i = 0; i < arr.length; i++) {
+                //alert(arr[i]);
+                var box = document.getElementById(arr[i]);
+                if (box != null) {
+                    box.checked = true;
+                }
+            }
+        }
+
+
+        $('#searchbutton').hide();
+
+    </script>
+</div>
+<style>
+    li {
+        list-style-type: none; /* Убираем маркеры */
+    }
+
+    ul {
+        margin-left: 0; /* Отступ слева в браузере IE и Opera */
+        padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+    }
+</style>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <title>@ViewBag.Title - blog of SNYGG ERIK</title>    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")       
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/angular.js"></script>    
+    <script src="~/Scripts/app.js"></script>
+</head>
+<body >
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+              
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>  
+                    <span class="icon-bar"></span>  
+                    <span class="icon-bar"></span>                             
+                </button>
+             
+               
+                
+            </div>
+            <div class="navbar-collapse collapse">
+              
+                <ul class="nav navbar-nav">
+                    @Html.ActionLink("Snygg Erik Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My blogs", "MyBlogs", "Blogs")</li>
+                        <li>@Html.ActionLink("My posts", "MyPosts", "Posts")</li>                        
+                        @*<li>@Html.ActionLink("Browse coments", "Index", "Comments")</li>*@
+                        @*<li>@Html.ActionLink("Create blog", "Create", "Blogs")</li>*@ 
+                       
+                    }
+                    @*<li>@Html.ActionLink("Search Blog", "Search", "Home")</li>*@
+                    <li>@Html.ActionLink("Browse blogs", "Index", "Blogs")</li>
+                    <li>@Html.ActionLink("Browse posts", "FilterPosts", "Posts")</li>
+                    <li class="col-sm-2">@Html.Partial("_Search")</li>
+                     @Html.Partial("_LoginPartial")
+</ul>
+               
+               
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+       
+        @RenderBody()
+        <hr />
+       
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Snygg Eriks Blog</p>
+        </footer>
+    </div>
+
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+      
+
+</body>
+</html>

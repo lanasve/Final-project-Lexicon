@@ -1,0 +1,146 @@
+﻿@model Snyggerik.Models.Adel
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container body-content">
+    <h2>Edit</h2>
+
+
+    @using (Html.BeginForm("Edit", "Posts", FormMethod.Post, new { AL = Model }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Post</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ThePost.IdPost)
+            @Html.HiddenFor(model => model.ThePost.Blog.BlogId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThePost.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ThePost.PostTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThePost.PostTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThePost.PostBody, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                   @Html.TextAreaFor(model => model.ThePost.PostBody, new { cols = 60, @rows = 6 })
+                    @Html.ValidationMessageFor(model => model.ThePost.PostBody, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThePost.PostCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.ThePost.PostCreated, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.ThePost.PostCreated, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThePost.Views, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ThePost.Views, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.ThePost.Views, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-md-2 " data-toggle="collapse" data-target="#demo">Click here for add tags. </label><br />
+                @* <button data-toggle="collapse" data-target="#demo">Collapsible</button>*@
+            </div>
+            <div id="demo" class="collapse">
+                @for (int i = 0; i < Model.AllTags.Count; i++)
+                {
+                    Boolean found = false;
+                    for (int n = 0; n < Model.SelectedTags.Count; n++)
+                    {
+                        if (Model.AllTags[i].TagId == Model.SelectedTags[n].Tag.TagId)
+                        {
+
+                            found = true;
+                            break;
+                        }
+
+                    }
+                    if (found == true)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input class="tags" type="checkbox" onclick="MakeTagList()" id="@Model.AllTags[i].TagId" checked /><font color="yellow"> @Model.AllTags[i].Name</font><br>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input class="tags" type="checkbox" onclick="MakeTagList()" id="@Model.AllTags[i].TagId" /><font color="yellow">@Model.AllTags[i].Name</font><br>
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+
+            <input type="hidden" name="taglist" id="taglist" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+
+    }
+    <div>
+        @Html.ActionLink("Back to My Blogs List", "MyBlogs", "Blogs")
+        ||
+        @Html.ActionLink("Back to My Posts List", "MyPosts", "Posts")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    <script>
+        function MakeTagList() {
+            //empty
+            document.getElementById('taglist').value = "";
+            //create new list
+            boxes = document.getElementsByClassName("tags");
+
+            var count = boxes.length;
+            var tagstring = "";
+            //alert(count);
+            for (var i = 0; i < count; i++) {
+                if (boxes[i].checked) {
+                    tagstring += boxes[i].id + ",";
+                }
+            }
+            //alert("tagstring is " + tagstring);
+            document.getElementById('taglist').value = tagstring;
+        }
+
+
+
+        document.getElementById('taglist').value = "";
+        //create new list
+        boxes = document.getElementsByClassName("tags");
+
+        var count = boxes.length;
+        var tagstring = "";
+        //alert(count);
+        for (var i = 0; i < count; i++) {
+            if (boxes[i].checked) {
+                tagstring += boxes[i].id + ",";
+            }
+        }
+        //alert("tagstring is " + tagstring);
+        document.getElementById('taglist').value = tagstring;
+    </script>
+</div>

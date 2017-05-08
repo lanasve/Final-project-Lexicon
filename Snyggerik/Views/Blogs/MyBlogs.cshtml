@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Blog>
+    @using Snyggerik.Models
+@{
+    ViewBag.Title = "MyBlogs";    
+    List<Tag> tagsList;
+}
+<div class="container body-content">
+
+    
+    <h2>MyBlogs</h2>
+
+
+    <div>
+       @Html.ActionLink("Create New Blog", "Create")
+        ||
+        @Html.ActionLink("Go to My Posts List", "MyPosts", "Posts")
+    </div>
+    <p>
+        
+
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BlogTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BlogBody)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BlogCreated)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BlogTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BlogBody)
+                        <br />
+                        Posts:  @Html.DisplayFor(modelItem => item.Posts.Count)
+
+                        <em>,  Views:  @item.Posts.Sum(p => p.Views)</em>
+                        <br />
+                        Tags: <br />
+                        @{
+                            tagsList = item.Posts.SelectMany(p => p.PostTags.Select(pt => pt.Tag)).ToList();
+                        }
+                        @foreach (var t in tagsList)
+                        {
+                            @(t.Name + ", ");
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BlogCreated)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BlogId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.BlogId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BlogId }) |
+                        @Html.ActionLink("Add post", "Create", "Posts", new { blogId = item.BlogId }, null)
+                    </td>
+                </tr>
+                }
+        </tbody>
+    </table>
+</div>

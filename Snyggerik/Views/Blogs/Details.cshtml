@@ -1,0 +1,43 @@
+﻿@model Snyggerik.Models.Blog
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container body-content">
+    <h2>Details</h2>
+
+    <div>
+        <h4>Blog</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BlogTitle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BlogTitle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BlogBody)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BlogBody)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BlogCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BlogCreated)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit Blog", "Edit", new { id = Model.BlogId }) ||
+        @Html.ActionLink("Back to My Blogs List", "MyBlogs")
+    </p>
+</div>
